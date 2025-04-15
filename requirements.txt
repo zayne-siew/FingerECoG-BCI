@@ -1,6 +1,7 @@
-numpy
-pandas
-scipy
-mne
 torch
 torchvision
+matplotlib
+scipy
+mne
+scikit-learn
+h5py
