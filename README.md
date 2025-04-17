@@ -29,6 +29,8 @@ The project folder structure is organised as follows:
 │   ├── constants.py
 │   ├── data.py
 │   ├── encoder_decoder.ipynb
+│   ├── eval.py
+│   ├── model.py
 │   ├── prepare_data.ipynb
 │   ├── run_lstm.ipynb
 │   └── train_lstm.ipynb

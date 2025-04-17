@@ -22,5 +22,9 @@ FLEXION_VAL_FILEPATH = "finger_flex_cropped_val.npy"
 """Filepath to the preprocessed finger flexion validation data."""
 
 
+# Model evaluation constants
+FINGER_LABELS = ['Thumb', 'Index', 'Middle', 'Ring', 'Little']
+
+
 if __name__ == '__main__':
     pass
