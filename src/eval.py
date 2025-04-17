@@ -2,13 +2,15 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.ndimage import gaussian_filter1d
 import torch
 from torch import nn
+from torch.utils.data import DataLoader
 
 from constants import FINGER_LABELS
 
 
-def correlation_metric(x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:
+def cosine_correlation_metric(x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:
     """Implements the cosine similarity metric.
 
     Parameters:
@@ -107,6 +109,49 @@ def plot_fingerwise_timeseries(
     plt.suptitle("Actual vs Predicted ECoG Time Series for Each Finger")
     plt.tight_layout()
     plt.show()
+
+
+def test_model(
+    model: nn.Module,
+    val_loader: DataLoader,
+    device: torch.device,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Evaluates an instance of a trained model.
+
+    Parameters:
+        model (nn.Module):
+            The model instance to train.
+        val_loader (DataLoader):
+            Dataloader of the test dataset.
+        device (torch.device, default=DEVICE):
+            Desired torch device to use for computation.
+
+    Returns:
+        The actual and predicted values.
+    """
+
+    model.to(device)
+    model.eval()
+
+    all_actuals, all_predictions = [], []
+
+    with torch.no_grad():
+        for batch in val_loader:
+            x, y = batch
+            x, y = x.to(device), y.to(device)
+
+            pred = model(x)
+
+            all_actuals.append(y.cpu().numpy())
+            all_predictions.append(pred.cpu().numpy())
+
+    all_actuals = np.concatenate(all_actuals, axis=0)
+    all_predictions = np.concatenate(all_predictions, axis=0)
+
+    all_predictions = gaussian_filter1d(all_predictions, sigma=2, axis=0)
+
+    # Plot the entire time series
+    return np.array(all_actuals), np.array(all_predictions)
 
 
 if __name__ == '__main__':
