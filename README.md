@@ -26,6 +26,8 @@ The project folder structure is organised as follows:
 │   ├── X_spectrogram_cropped_val.npy
 │   └── X_spectrogram_cropped.npy
 ├── src/
+│   ├── constants.py
+│   ├── data.py
 │   ├── encoder_decoder.ipynb
 │   ├── prepare_data.ipynb
 │   ├── run_lstm.ipynb
@@ -36,7 +38,7 @@ The project folder structure is organised as follows:
 
 The `/data` folder contains all original and preprocessed data files used for training. This includes the cropped and up/down-sampled ECoG signals and the spectrogram conversion.
 
-The `/src` folder contains Jupyter notebooks used to preprocess the data (`prepare_data.ipynb`), and the two models - the vanilla autoencoder (`encoder_decoder.ipynb`) and the LSTM hybrid (`train_lstm.ipynb`, `run_lstm.ipynb`) - as described above.
+The `/src` folder contains Jupyter notebooks used to preprocess the data (`prepare_data.ipynb`), and the two models - the vanilla autoencoder (`encoder_decoder.ipynb`) and the LSTM hybrid (`train_lstm.ipynb`, `run_lstm.ipynb`) - as described above. The remaining Python files are helper files used across the various Jupyter notebooks.
 
 The best-performing model has been saved into a `.pth` file which can be loaded for testing.
 
