@@ -4,15 +4,52 @@ Prediction of finger flexion from ECoG data - BCI Competition IV
 
 ## Dataset
 
-This is BCI IV Competition dataset 4. It contains ECoG signals recorded together with fingers movements.
+We use dataset 4 from BCI IV Competition. It contains ECoG signals recorded together with fingers movements.
 
-More details about the BCI IV Competition: http://www.bbci.de/competition/iv/
+More details about the dataset and the BCI competition can be found here: http://www.bbci.de/competition/iv/.
 
-'subN_comp.mat' files contain training ('train_data') and test ('test_data') ECoG signals and corresponding training fingers movements ('train_dg').
+## Project Information
 
-'subN_testlabels.mat` files contain test fingers movements ('test_dg') corresponding to the test dataset from 'subN_comp.mat' file.
+The project folder structure is organised as follows:
 
-The data are drawn from the 'fingerflex' data of Kai J. Miller's ECoG library, which can be downloaded at https://searchworks.stanford.edu/view/zk881ps0522.
+```text
+.
+├── data/
+│   ├── finger_flex_cropped_val.npy
+│   ├── finger_flex_cropped.npy
+│   ├── sub1_comp.mat
+│   ├── sub1_testlabels.mat
+│   ├── sub2_comp.mat
+│   ├── sub2_testlabels.mat
+│   ├── sub3_comp.mat
+│   ├── sub3_testlabels.mat
+│   ├── X_spectrogram_cropped_val.npy
+│   └── X_spectrogram_cropped.npy
+├── src/
+│   ├── encoder_decoder.ipynb
+│   ├── prepare_data.ipynb
+│   ├── run_lstm.ipynb
+│   └── train_lstm.ipynb
+├── requirements.txt
+└── 0.5924338698387146.pth
+```
+
+The `/data` folder contains all original and preprocessed data files used for training. This includes the cropped and up/down-sampled ECoG signals and the spectrogram conversion.
+
+The `/src` folder contains Jupyter notebooks used to preprocess the data (`prepare_data.ipynb`), and the two models - the vanilla autoencoder (`encoder_decoder.ipynb`) and the LSTM hybrid (`train_lstm.ipynb`, `run_lstm.ipynb`) - as described above.
+
+The best-performing model has been saved into a `.pth` file which can be loaded for testing.
+
+### How to Use
+
+1. Download the dataset and unzip the files into a `/data` folder.
+2. Install the Python requirements using
+
+```shell
+pip install -r requirements.txt
+```
+
+3. Run the data preparation notebook, followed by the model of your choosing.
 
 ## Acknowledgements
 
