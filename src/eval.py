@@ -73,6 +73,7 @@ def plot_fingerwise_timeseries(
     predictions: np.ndarray,
     time_axis: np.ndarray,
     finger_labels: list[str] = FINGER_LABELS,
+    sample: int | None = None,
 ) -> None:
     """Plot actual vs. predicted ECoG signals for each finger as separate time series subplots.
 
@@ -85,16 +86,43 @@ def plot_fingerwise_timeseries(
             Numpy array of shape `(timesteps,)`, optional.
         finger_labels (list[int], default=FINGER_LABELS):
             List of string labels for fingers.
+        sample (Optional[int], default=None):
+            Selected sample to plot, or all if unspecified.
     """
 
     num_fingers = actuals.shape[1]
+    samples = actuals.shape[2] if len(actuals.shape) > 2 else 1
 
     plt.figure(figsize=(12, 8))
 
     for i in range(num_fingers):
         plt.subplot(num_fingers, 1, i+1)
-        plt.plot(time_axis, actuals[:, i], label='True', color='blue', alpha=0.7)
-        plt.plot(time_axis, predictions[:, i], label='Prediction', color='green', alpha=0.7)
+
+        # Plot all actual flexion data
+        actual = actuals[:, i]
+        for j in range(samples):
+            if sample is not None and j != sample:
+                continue
+            plt.plot(
+                time_axis,
+                actual[:, j],
+                label='True' if sample is not None or j == 0 else '',
+                color='blue',
+                alpha=0.7,
+            )
+
+        # Plot all prediction flexion data
+        pred = predictions[:, i]
+        for j in range(samples):
+            if sample is not None and j != sample:
+                continue
+            plt.plot(
+                time_axis,
+                pred[:, j],
+                label='Prediction' if sample is not None or j == 0 else '',
+                color='green',
+                alpha=0.7,
+            )
 
         plt.ylabel(finger_labels[i])
 
@@ -106,7 +134,7 @@ def plot_fingerwise_timeseries(
         if i == num_fingers - 1:
             plt.xlabel("Time (s)")
 
-    plt.suptitle("Actual vs Predicted ECoG Time Series for Each Finger")
+    plt.suptitle(f"Actual vs Predicted ECoG Time Series {'(Collated) ' if sample is None else ''}for Each Finger")
     plt.tight_layout()
     plt.show()
 

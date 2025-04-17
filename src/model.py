@@ -71,7 +71,7 @@ class EncoderDecoderVanilla(nn.Module):
 
         return decoded
 
-class LSTM_flatten(nn.LSTM):
+class LSTM_flatten(nn.Module):
     """LSTM with built-in parameter flattening."""
 
     def __init__(self, input_size: int, hidden_size: int, num_layers: int, bidirectional: bool, batch_first: bool):
