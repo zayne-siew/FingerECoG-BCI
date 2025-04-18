@@ -2,14 +2,28 @@
 
 Prediction of finger flexion from ECoG data - BCI Competition IV
 
+<p align="center">
+    <img src="assets/model-output.png" alt="Final model predictions">
+    <em>Sample predictions of our final model.</em>
+</p>
+
 ## Models
 
 By transforming the waveform timeseries ECoG data into spectrograms, we leverage on the new-found homophilic property of the spectrogram to train convolutional autoencoders (CAE) for prediction flexion patterns.
 
 Our vanilla encoder-decoder model architecture is as follows. We trained the model on subject 1's data and got an overall Pearson correlation coefficient of **0.3501**, which is less than ideal.
 
-![Vanilla CAE model](assets/VanillaEncoderDecoder.png)
-_Vanilla CAE model with three conv-deconv layers, using batchnorm, dropout, and GeLU activation._
+<p align="center">
+    <img src="assets/VanillaEncoderDecoder.png" alt="Vanilla CAE model">
+    <em>Vanilla CAE model with 3 conv-deconv layers; with batch-norm, dropout, and GeLU activation.</em>
+</p>
+
+We built a deep CAE as our final model by incorporating an LSTM RNN into the bottleneck layer of the CAE. This leverages on both the homophilic patterns of the spectrogram as well as captures the time-series-based patterns within the data from the LSTM, giving the model as much information as possible to extract patterns.
+
+<p align="center">
+    <img src="assets/CAE-LSTM.png" alt="Deep CAE-LSTM model">
+    <em>Deep CAE-LSTM hybrid model with 3 conv-deconv blocks, each with 2 conv layers; with batch-norm, dropout, skip connections, and GeLU activation.</em>
+</p>
 
 ## Dataset
 
