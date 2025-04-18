@@ -1,7 +1,16 @@
 """Defines constants used throughout the model building pipeline, from preprocessing to training and evaluation."""
 
 # Data preprocessing constants
-CHANNELS_NUM = 62
+
+SUBJECT_ID = "sub1"
+
+if SUBJECT_ID == "sub1":
+    CHANNELS_NUM = 62
+elif SUBJECT_ID == "sub2":
+    CHANNELS_NUM = 48
+elif SUBJECT_ID == "sub3":
+    CHANNELS_NUM = 64
+
 """Number of channels in ECoG data."""
 WAVELET_NUM = 40
 """Number of wavelets in the frequency range."""

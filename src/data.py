@@ -52,7 +52,7 @@ def plot_ecog_data(train_dataset: EcogDataset) -> None:
         axs[0].set_title('Input ECoG Data (x) - Shape: ' + str(x.shape))
         # Assuming x is (62, 40, timeseries)
         # We'll plot a few channels/slices
-        #im = axs[0].imshow(x[0, :, :], aspect='auto', cmap='viridis')
+        im = axs[0].imshow(x[0, :, :], aspect='auto', cmap='viridis')
 
         # Plot target data (y)
         plt.title('Target Data (5 Fingers) - Time Series')
