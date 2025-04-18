@@ -2,6 +2,15 @@
 
 Prediction of finger flexion from ECoG data - BCI Competition IV
 
+## Models
+
+By transforming the waveform timeseries ECoG data into spectrograms, we leverage on the new-found homophilic property of the spectrogram to train convolutional autoencoders (CAE) for prediction flexion patterns.
+
+Our vanilla encoder-decoder model architecture is as follows. We trained the model on subject 1's data and got an overall Pearson correlation coefficient of **0.3501**, which is less than ideal.
+
+![Vanilla CAE model](assets/VanillaEncoderDecoder.png)
+_Vanilla CAE model with three conv-deconv layers, using batchnorm, dropout, and GeLU activation._
+
 ## Dataset
 
 We use dataset 4 from BCI IV Competition. It contains ECoG signals recorded together with fingers movements.
@@ -33,16 +42,20 @@ The project folder structure is organised as follows:
 │   ├── model.py
 │   ├── prepare_data.ipynb
 │   ├── run_lstm.ipynb
-│   └── train_lstm.ipynb
+│   └── train_sub1_lstm.ipynb
+│   └── train_sub2_lstm.ipynb
+│   └── train_sub3_lstm.ipynb
 ├── requirements.txt
-└── 0.5924338698387146.pth
+└── sub1.pth
+└── sub2.pth
+└── sub3.pth
 ```
 
 The `/data` folder contains all original and preprocessed data files used for training. This includes the cropped and up/down-sampled ECoG signals and the spectrogram conversion.
 
-The `/src` folder contains Jupyter notebooks used to preprocess the data (`prepare_data.ipynb`), and the two models - the vanilla autoencoder (`encoder_decoder.ipynb`) and the LSTM hybrid (`train_lstm.ipynb`, `run_lstm.ipynb`) - as described above. The remaining Python files are helper files used across the various Jupyter notebooks.
+The `/src` folder contains Jupyter notebooks used to preprocess the data (`prepare_data.ipynb`), and the two models - the vanilla autoencoder (`encoder_decoder.ipynb`) and the CAE-LSTM hybrid (`train_subX_lstm.ipynb`, `run_lstm.ipynb`) - as described above. The remaining Python files are helper files used across the various Jupyter notebooks.
 
-The best-performing model has been saved into a `.pth` file which can be loaded for testing.
+The best-performing models per subject have been saved into their respective `.pth` files, which can be loaded for testing.
 
 ### How to Use
 
