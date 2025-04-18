@@ -27,9 +27,14 @@ We built a deep CAE as our final model by incorporating an LSTM RNN into the bot
 
 ## Dataset
 
-We use dataset 4 from BCI IV Competition. It contains ECoG signals recorded together with fingers movements.
+We use dataset 4 from BCI IV Competition. It contains ECoG signals recorded together with fingers movements. We then preprocess the data by synchronizing (upsampling/downsampling) the ECoG and finger glove data frequencies, and filter and transform the ECoG wavelets into spectrograms.
 
-More details about the dataset and the BCI competition can be found here: http://www.bbci.de/competition/iv/.
+<p align="center">
+    <img src="assets/data-visualisation.png" alt="Spectrogram and finger flexion visualisation for subject 1">
+    <em>Spectrogram and finger flexion visualisation for subject 1.</em>
+</p>
+
+More details about the dataset and the BCI competition can be found here: http://www.bbci.de/competition/iv/. You may also refer to `prepare_data.ipynb` for more preprocessing information.
 
 ## Project Information
 
@@ -49,6 +54,7 @@ The project folder structure is organised as follows:
 │   ├── X_spectrogram_cropped_val.npy
 │   └── X_spectrogram_cropped.npy
 ├── src/
+│   ├── __init__.py
 │   ├── constants.py
 │   ├── data.py
 │   ├── encoder_decoder.ipynb
@@ -77,10 +83,15 @@ The best-performing models per subject have been saved into their respective `.p
 2. Install the Python requirements using
 
 ```shell
+cd PATH_TO_ROOT_DIRECTORY/
 pip install -r requirements.txt
 ```
 
-3. Run the data preparation notebook, followed by the model of your choosing.
+3. Run the data preparation notebook `prepare_data.ipynb`, followed by the model of your choosing.
+
+To run the training workflow for subject 1, you would need to first set the `SUBJECT_ID` to be equal to `“sub1”` in `constants.py`, run `prepare_data.ipynb` (if not previously run), then `train_sub1_lstm`.ipynb. Similar workflows for the other 2 subjects.
+
+To run the test workflow for subject 1 you would need to first set the `SUBJECT_ID` to be equal to `“sub1”` in `constants.py`, run `prepare_data.ipynb` (if not previously run), then `run_lstm.ipynb`. Similar workflows for the other 2 subjects.
 
 ## Acknowledgements
 
