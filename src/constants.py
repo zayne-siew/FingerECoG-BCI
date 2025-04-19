@@ -2,7 +2,7 @@
 
 # Data preprocessing constants
 
-SUBJECT_ID = "sub1"
+SUBJECT_ID = "sub3"
 
 if SUBJECT_ID == "sub1":
     CHANNELS_NUM = 62
